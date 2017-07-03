@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<configuration>
+  <property>
+    <name>dt.attr.MASTER_MEMORY_MB</name>
+    <value>1256</value>
+  </property>
+  <property>
+    <name>dt.application.*.operator.*.attr.MEMORY_MB</name>
+    <value>256</value>
+  </property>
+  <property>
+    <name>dt.application.*.operator.*.attr.JVM_OPTIONS</name>
+    <value>-Xmx128M</value>
+  </property>
+
+  <property>
+    <name>dt.application.*.operator.*.port.*.attr.BUFFER_MEMORY_MB</name>
+    <value>256</value>
+  </property>
+  <property>
+    <name>dt.operator.TweetSampler.reConnect</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>dt.operator.TweetSampler.consumerKey</name>
+    <value>FCOju4ojyRfG5kEht8OEA</value>
+  </property>
+  <property>
+    <name>dt.operator.TweetSampler.consumerSecret</name>
+    <value>QsK2VrqUHNG5Yy0kNmwIMOGRLBwJKJ2jpaM3loKQ9UQ</value>
+  </property>
+  <property>
+    <name>dt.operator.TweetSampler.accessToken</name>
+    <value>123553290-rLJG2LUhqe3NI3VJ3ckDo9dA2j5nKEGgJiRcQQTd</value>
+  </property>
+  <property>
+    <name>dt.operator.TweetSampler.accessTokenSecret</name>
+    <value>7ctQqPbqXPdmS5p6Ey7wj2yeXoSmkjafIOci4s1Z8RAAx</value>
+  </property>
+  <property>
+    <name>dt.operator.TweetSampler.feedMultiplierVariance</name>
+    <value>5</value>
+  </property>
+  <property>
+    <name>dt.operator.TweetSampler.feedMultiplier</name>
+    <value>20</value>
+  </property>
+
+  <property>
+    <name>dt.application.TwitterExample.operator.SnapshotServer.embeddableQueryInfoProvider.topic</name>
+    <value>TwitterURLQuery</value>
+  </property>
+  <property>
+    <name>dt.application.TwitterExample.operator.QueryResult.topic</name>
+    <value>TwitterURLQueryResult</value>
+  </property>
+  <property>
+    <name>dt.application.TwitterExample.operator.QueryResult.numRetries</name>
+    <value>2147483647</value>
+  </property>
+  <property>
+    <name>dt.application.TwitterExample.operator.UniqueURLCounter.attr.APPLICATION_WINDOW_COUNT</name>
+    <value>60</value>
+  </property>
+
+  <!-- Metrics Plugin -->
+  <property>
+    <name>apex.plugin.stram.plugins</name>
+    <value>com.datatorrent.metrics.plugin.MetricWriterPlugin</value>
+  </property>
+  <property>
+    <name>dt.attr.GATEWAY_CONNECT_ADDRESS</name>
+    <value>localhost:9090</value>
+  </property>
+</configuration>
+
