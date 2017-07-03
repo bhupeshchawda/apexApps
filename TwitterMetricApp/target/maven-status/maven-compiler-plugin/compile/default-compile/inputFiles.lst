@@ -1,9 +1,0 @@
-/code/dev/TwitterMetricApp/src/main/java/com/example/twitter/CCPAggregator.java
-/code/dev/TwitterMetricApp/src/main/java/com/example/twitter/WindowedTopCounter.java
-/code/dev/TwitterMetricApp/src/main/java/com/example/twitter/AppMetricComputer.java
-/code/dev/TwitterMetricApp/src/main/java/com/example/twitter/StringFilter.java
-/code/dev/TwitterMetricApp/src/main/java/com/example/twitter/NonEnglishFilter.java
-/code/dev/TwitterMetricApp/src/main/java/com/example/twitter/SlidingContainer.java
-/code/dev/TwitterMetricApp/src/main/java/com/example/twitter/TwitterStatusURLExtractor.java
-/code/dev/TwitterMetricApp/src/main/java/com/example/twitter/TwitterStatusHashtagExtractor.java
-/code/dev/TwitterMetricApp/src/main/java/com/example/twitter/TwitterTopCounterApplication.java
