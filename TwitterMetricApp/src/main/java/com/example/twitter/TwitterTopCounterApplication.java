@@ -153,62 +153,17 @@ public class TwitterTopCounterApplication implements StreamingApplication
 
     NonEnglishFilter filter = dag.addOperator("Filter", NonEnglishFilter.class);
 
-    // Setup a node to count the unique urls within a window.
-    UniqueCounter<String> uniqueCounter = dag.addOperator("UniqueURLCounter", new UniqueCounter<String>());
-    // Get the aggregated url counts and count them over last 5 mins.
-    dag.setAttribute(uniqueCounter, Context.OperatorContext.APPLICATION_WINDOW_COUNT, 1);
-    dag.setAttribute(uniqueCounter, Context.OperatorContext.SLIDE_BY_WINDOW_COUNT, 1);
-
-    WindowedTopCounter<String> topCounts = dag.addOperator("TopCounter", new WindowedTopCounter<String>());
-    topCounts.setTopCount(10);
-    topCounts.setSlidingWindowWidth(1);
-    topCounts.setDagWindowWidth(1);
+    TopCounterOperator topCounts = dag.addOperator("TopCounter", TopCounterOperator.class);
+    topCounts.setNumWindows(120);
 
     // Feed the statuses from feed into the input of the url extractor.
     dag.addStream("TweetStream", twitterFeed.status, hashtagExtractor.input).setLocality(Locality.CONTAINER_LOCAL);
     //  Start counting the urls coming out of URL extractor
     dag.addStream("FilteredHashtags", hashtagExtractor.hashtags, filter.input);
-    dag.addStream("TwittedHashtags", filter.output, uniqueCounter.data);
-    // Count unique urls
-    dag.addStream("UniqueHashtagCounts", uniqueCounter.count, topCounts.input);
+    dag.addStream("TwittedHashtags", filter.output, topCounts.input);
 
     dag.setAttribute(AppMetricProcessor.APP_METRIC_PROCESSOR, new AppMetricComputer());
     dag.setOperatorAttribute(topCounts, Context.OperatorContext.METRICS_AGGREGATOR, new CCPAggregator());
 
-//    consoleOutput(dag, "topURLs", topCounts.output, SNAPSHOT_SCHEMA, "url");
   }
-
-//  public static void consoleOutput(DAG dag, String operatorName, OutputPort<List<Map<String, Object>>> topCount, String schemaFile, String alias)
-//  {
-//    String gatewayAddress = dag.getValue(DAG.GATEWAY_CONNECT_ADDRESS);
-//    if (!StringUtils.isEmpty(gatewayAddress)) {
-//      System.out.println("Gateway address found: " + gatewayAddress);
-//      URI uri = URI.create("ws://" + gatewayAddress + "/pubsub");
-//
-//      AppDataSnapshotServerMap snapshotServer = dag.addOperator("SnapshotServer", new AppDataSnapshotServerMap());
-//
-//      Map<String, String> conversionMap = Maps.newHashMap();
-//      conversionMap.put(alias, WindowedTopCounter.FIELD_TYPE);
-//      String snapshotServerJSON = SchemaUtils.jarResourceFileToString(schemaFile);
-//
-//      snapshotServer.setSnapshotSchemaJSON(snapshotServerJSON);
-//      snapshotServer.setTableFieldToMapField(conversionMap);
-//
-//      PubSubWebSocketAppDataQuery wsQuery = new PubSubWebSocketAppDataQuery();
-//      wsQuery.setUri(uri);
-//      snapshotServer.setEmbeddableQueryInfoProvider(wsQuery);
-//
-//      PubSubWebSocketAppDataResult wsResult = dag.addOperator("QueryResult", new PubSubWebSocketAppDataResult());
-//      wsResult.setUri(uri);
-//      Operator.InputPort<String> queryResultPort = wsResult.input;
-//
-//      dag.addStream("MapProvider", topCount, snapshotServer.input);
-//      dag.addStream("Result", snapshotServer.queryResult, queryResultPort);
-//    } else {
-//      ConsoleOutputOperator operator = dag.addOperator(operatorName, new ConsoleOutputOperator());
-//      operator.setStringFormat(operatorName + ": %s");
-//
-//      dag.addStream("MapProvider", topCount, operator.input);
-//    }
-//  }
 }

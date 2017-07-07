@@ -14,25 +14,21 @@ public class AppMetricComputer extends DefaultAppMetricProcessor
   @Override
   public Map<String, Object> computeAppLevelMetrics(Map<String, Map<String, Object>> completedMetrics)
   {
-    System.out.println("Completed: " + completedMetrics);
+    System.out.println("Completed Metrics: " + completedMetrics);
     Map<String, Object> output = Maps.newHashMap();
-    if ( completedMetrics != null &&
-      completedMetrics.containsKey("HashtagExtractor") &&
-      completedMetrics.containsKey("Filter")) {
-      if (completedMetrics.get("HashtagExtractor").get("numTags") == null ||
-        completedMetrics.get("Filter").get("englishTags") == null) {
-        return output;
-      }
-      Long incoming = (long) completedMetrics.get("HashtagExtractor").get("numTags");
-      Long english = (long) completedMetrics.get("Filter").get("englishTags");
+    long incoming = (long)completedMetrics.get("HashtagExtractor").get("numTags");
+    long english = (long)completedMetrics.get("Filter").get("englishTags");
 
-      if(incoming != null && english != null){
-        if(incoming != 0){
-          double percentFiltered = (english * 100.0) / incoming;
-          output.put("PercentEnglish", percentFiltered);
-        }
-      }
+    if (incoming != 0) {
+      double percentFiltered = (english * 100.0) / incoming;
+      output.put("PercentEnglish", percentFiltered);
     }
     return output;
+  }
+
+  @Override
+  public AppMetricAggregator getAppMetricAggregator()
+  {
+    return new AppMetricAggregatorImpl();
   }
 }

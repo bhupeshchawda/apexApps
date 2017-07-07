@@ -15,6 +15,13 @@ public class NonEnglishFilter extends BaseOperator
   @AutoMetric
   public long nonEnglishTags = 0;
 
+  @Override
+  public void beginWindow(long windowId)
+  {
+    englishTags = 0;
+    nonEnglishTags = 0;
+  }
+
   public final transient DefaultInputPort<String> input = new DefaultInputPort<String>()
   {
     @Override
