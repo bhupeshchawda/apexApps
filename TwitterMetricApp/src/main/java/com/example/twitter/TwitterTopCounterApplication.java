@@ -145,7 +145,7 @@ public class TwitterTopCounterApplication implements StreamingApplication
   public void populateDAG(DAG dag, Configuration conf)
   {
     // Setup the operator to get the data from twitter sample stream injected into the system.
-    TwitterSampleInput twitterFeed = new TwitterSampleInput();
+    CustomTwitterSampleInput twitterFeed = new CustomTwitterSampleInput();
     twitterFeed = dag.addOperator("TweetSampler", twitterFeed);
 
     //  Setup the operator to get the URLs extracted from the twitter statuses

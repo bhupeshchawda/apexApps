@@ -45,6 +45,10 @@
     <name>dt.operator.TweetSampler.feedMultiplier</name>
     <value>20</value>
   </property>
+  <property>
+    <name>dt.operator.TweetSampler.cacheSize</name>
+    <value>1000</value>
+  </property>
 
   <!--<property>-->
     <!--<name>dt.application.TwitterExample.operator.SnapshotServer.embeddableQueryInfoProvider.topic</name>-->
