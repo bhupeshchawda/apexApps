@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<configuration>
+  <property>
+    <name>dt.operator.hbase.prop.tableName</name>
+    <value>test</value>
+  </property>
+  <property>
+    <name>dt.operator.hbase.prop.clientPort</name>
+    <value>2181</value>
+  </property>
+  <property>
+    <name>dt.operator.hbase.prop.zookeeperQuorum</name>
+    <value>localhost</value>
+  </property>
+  <property>
+    <name>dt.operator.hbase.port.outputPort.attr.TUPLE_CLASS</name>
+    <value>com.example.TestHBaseBatch.POJOClass</value>
+  </property>
+</configuration>
+
