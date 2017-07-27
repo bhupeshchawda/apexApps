@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<configuration>
+  <!--<property>-->
+    <!--<name>dt.operator.olap.attr.PARTITIONER</name>-->
+    <!--<value>com.datatorrent.common.partitioner.StatelessPartitioner:2</value>-->
+  <!--</property>-->
+</configuration>
+

@@ -1,0 +1,11 @@
+{
+  "queryType": "groupBy",
+  "dataSource": "",
+  "granularity": "MINUTE",
+  "dimensions": ["a","b","c"],
+  "aggregations": [
+    { "type": "longSum", "name": "sum_agg_x", "fieldName": "agg_sum_x" },
+    { "type": "longSum", "name": "count", "fieldName": "agg_count" }
+  ],
+  "intervals": [ "1970-01-01T00:00:00.000/2018-01-03T00:00:00.000" ]
+}
