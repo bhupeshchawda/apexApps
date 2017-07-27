@@ -15,6 +15,7 @@ import com.datatorrent.common.partitioner.StatelessPartitioner;
 import com.datatorrent.lib.appdata.schemas.SchemaUtils;
 import com.datatorrent.lib.io.ConsoleOutputOperator;
 import com.datatorrent.olap.EmbeddedDruidOLAPOperator;
+import com.datatorrent.olap.partition.DimensionBasedStreamCodec;
 
 @ApplicationAnnotation(name="MyFirstApplication")
 public class Application implements StreamingApplication
@@ -36,7 +37,7 @@ public class Application implements StreamingApplication
 
     dag.setInputPortAttribute(olapOperator.in, Context.PortContext.TUPLE_CLASS, POJO.class);
 
-    DruidStreamCodec partitioningCodec = new DruidStreamCodec();
+    DimensionBasedStreamCodec partitioningCodec = new DimensionBasedStreamCodec();
     partitioningCodec.setDimensions(Arrays.asList("a", "b"));
     partitioningCodec.setNumDimensionsToPartitionOn(2);
     dag.setInputPortAttribute(olapOperator.in, Context.PortContext.STREAM_CODEC, partitioningCodec);
