@@ -14,7 +14,7 @@ import com.datatorrent.common.util.BaseOperator;
 /**
  * Created by bhupesh on 20/7/17.
  */
-public class OlapQueryGenerator extends BaseOperator implements InputOperator
+public class RandomOlapQueryGenerator extends BaseOperator implements InputOperator
 {
   private final static char base = 'a';
 
@@ -25,6 +25,7 @@ public class OlapQueryGenerator extends BaseOperator implements InputOperator
   // internal
   private transient int numTuplesThisWindow = 0;
   private transient int maxCombinations = 0;
+  private int queryId = 0;
 
   public final transient DefaultOutputPort<String> output = new DefaultOutputPort<>();
 
@@ -54,6 +55,7 @@ public class OlapQueryGenerator extends BaseOperator implements InputOperator
   private String getGroupByQuery(int n) throws JSONException
   {
     JSONObject json = new JSONObject();
+    json.put("context", new JSONObject().put("queryId", ++queryId+""));
     json.put("queryType","groupBy");
     json.put("dataSource","");
     json.put("granularity","MINUTE");

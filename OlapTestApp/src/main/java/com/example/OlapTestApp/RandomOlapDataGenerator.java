@@ -12,7 +12,7 @@ import com.datatorrent.common.util.BaseOperator;
 /**
  * Created by bhupesh on 20/7/17.
  */
-public class OlapDataGenerator extends BaseOperator implements InputOperator
+public class RandomOlapDataGenerator extends BaseOperator implements InputOperator
 {
   public static final char base = 'A';
   public int numDimensions = 3;
@@ -29,7 +29,7 @@ public class OlapDataGenerator extends BaseOperator implements InputOperator
 
   public final transient DefaultOutputPort<Object> data = new DefaultOutputPort<>();
 
-  public OlapDataGenerator()
+  public RandomOlapDataGenerator()
   {
     if (cardinalities.length != numDimensions) {
       throw new IllegalArgumentException("Cardinalities not specified for all dimensions");
