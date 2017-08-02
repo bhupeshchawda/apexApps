@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<configuration>
+  <property>
+    <name>dt.operator.olap.prop.olapSchema</name>
+    <value>{
+      "timeColumn": "time",
+      "dimensions": [
+      {
+      "name": "a",
+      "type": "string"
+      }, {
+      "name": "b",
+      "type": "string"
+      }, {
+      "name": "c",
+      "type": "string"
+      }, {
+      "name": "d",
+      "type": "string"
+      }, {
+      "name": "e",
+      "type": "string"
+      }, {
+      "name": "f",
+      "type": "string"
+      }, {
+      "name": "g",
+      "type": "string"
+      }
+      ],
+      "measures": [
+      {
+      "type": "longSum",
+      "name": "sum_x",
+      "fieldName": "x"
+      }, {
+      "type": "longSum",
+      "name": "sum_y",
+      "fieldName": "y"
+      }, {
+      "type": "longSum",
+      "name": "sum_z",
+      "fieldName": "z"
+      }
+      ],
+      "granularity": "MINUTE"
+      }</value>
+  </property>
+  <property>
+    <name>dt.operator.input.prop.numTuplesPerWindow</name>
+    <value>1000000</value>
+  </property>
+  <property>
+    <name>dt.operator.input.prop.numDimensions</name>
+    <value>7</value>
+  </property>
+  <property>
+    <name>dt.operator.input.prop.cardinalities</name>
+    <value>200,2000,20000,100000,10,100,2</value>
+  </property>
+  <property>
+    <name>dt.operator.olap.port.in.attr.TUPLE_CLASS</name>
+    <value>com.example.OlapBenchmark.pojo.POJO7</value>
+  </property>
+  <property>
+    <name>dt.operator.input.prop.tupleCountBeforeQuery</name>
+    <value>10000000</value>
+  </property>
+
+</configuration>
+

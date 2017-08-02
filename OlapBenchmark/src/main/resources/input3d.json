@@ -1,0 +1,34 @@
+{
+  "timeColumn": "time",
+  "dimensions": [
+    {
+      "name": "a",
+      "type": "string"
+    }, {
+      "name": "b",
+      "type": "string"
+    }, {
+      "name": "c",
+      "type": "string"
+    }
+  ],
+  "measures": [
+    {
+      "type": "longSum",
+      "name": "sum_x",
+      "fieldName": "x"
+    }, {
+      "type": "longSum",
+      "name": "sum_y",
+      "fieldName": "y"
+    }, {
+      "type": "longSum",
+      "name": "sum_z",
+      "fieldName": "z"
+    }, {
+      "type": "count",
+      "name": "count"
+    }
+  ],
+  "granularity": "MINUTE"
+}
