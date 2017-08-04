@@ -6,7 +6,7 @@ import com.datatorrent.api.DAG;
 import com.datatorrent.api.StreamingApplication;
 import com.datatorrent.api.annotation.ApplicationAnnotation;
 import com.datatorrent.lib.io.ConsoleOutputOperator;
-import com.datatorrent.olap.EmbeddedDruidOLAPOperator;
+import com.datatorrent.olap.DruidOLAPIngestOperator;
 
 /**
  * Created by bhupesh on 2/8/17.
@@ -17,8 +17,8 @@ public class OlapIngestionAndQueryBenchmarkApp implements StreamingApplication
   @Override
   public void populateDAG(DAG dag, Configuration configuration)
   {
-    BenchmarkDataInput input = dag.addOperator("input", BenchmarkDataInput.class);
-    EmbeddedDruidOLAPOperator olap = dag.addOperator("olap", EmbeddedDruidOLAPOperator.class);
+    BenchmarkDataInputBeforeQuery input = dag.addOperator("input", BenchmarkDataInputBeforeQuery.class);
+    DruidOLAPIngestOperator olap = dag.addOperator("olap", DruidOLAPIngestOperator.class);
     BenchmarkQueryInput query = dag.addOperator("query", BenchmarkQueryInput.class);
     ConsoleOutputOperator console = dag.addOperator("console", ConsoleOutputOperator.class);
 

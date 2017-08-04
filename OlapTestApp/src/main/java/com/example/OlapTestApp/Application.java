@@ -16,7 +16,7 @@ import com.datatorrent.api.annotation.ApplicationAnnotation;
 import com.datatorrent.common.partitioner.StatelessPartitioner;
 import com.datatorrent.lib.appdata.schemas.SchemaUtils;
 import com.datatorrent.lib.io.PubSubWebSocketAppDataResult;
-import com.datatorrent.olap.EmbeddedDruidOLAPOperator;
+import com.datatorrent.olap.DruidOLAPIngestOperator;
 import com.datatorrent.olap.partition.DimensionBasedStreamCodec;
 
 @ApplicationAnnotation(name="MyFirstApplication")
@@ -27,7 +27,7 @@ public class Application implements StreamingApplication
   {
     RandomOlapDataGenerator dataGenerator = dag.addOperator("dataGen", RandomOlapDataGenerator.class);
     RandomOlapQueryGenerator queryGenerator = dag.addOperator("queryGen", RandomOlapQueryGenerator.class);
-    EmbeddedDruidOLAPOperator olapOperator = dag.addOperator("olap", EmbeddedDruidOLAPOperator.class);
+    DruidOLAPIngestOperator olapOperator = dag.addOperator("olap", DruidOLAPIngestOperator.class);
     olapOperator.setOlapSchema(SchemaUtils.jarResourceFileToString("input.json"));
     ResultInterpreter interpreter = dag.addOperator("Interpreter", ResultInterpreter.class);
     PubSubWebSocketAppDataResult result = dag.addOperator("result", new PubSubWebSocketAppDataResult());

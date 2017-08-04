@@ -12,24 +12,27 @@ import com.datatorrent.common.util.BaseOperator;
 /**
  * Created by bhupesh on 1/8/17.
  */
-public class BenchmarkDataInput extends BaseOperator implements InputOperator
+public class BenchmarkDataInputBeforeQuery extends BaseOperator implements InputOperator
 {
 
   // config
   private int numDimensions;
   private String cardinalities;
   private int numTuplesPerWindow;
+  private int numQueryTuplesPerWindow;
 
   // operator private
   private long countThisWindow = 0;
   private long totalCount = 0;
+  private long tupleCountBeforeQuery;
 
   // transients
   private transient BenchmarkDataGeneratorUtility generator;
 
   public final transient DefaultOutputPort<POJO> dataOutput = new DefaultOutputPort<>();
+  public final transient DefaultOutputPort<Boolean> queryTrigger = new DefaultOutputPort<>();
 
-  public BenchmarkDataInput()
+  public BenchmarkDataInputBeforeQuery()
   {
   }
 
@@ -62,9 +65,15 @@ public class BenchmarkDataInput extends BaseOperator implements InputOperator
   @Override
   public void emitTuples()
   {
-    if (++countThisWindow <= numTuplesPerWindow) {
-      dataOutput.emit(POJOGenerationFromData.getPOJO(generator.gen(), numDimensions));
-      totalCount++;
+    if (totalCount > tupleCountBeforeQuery) {
+      if (++countThisWindow <= numQueryTuplesPerWindow) {
+        queryTrigger.emit(true);
+      }
+    } else {
+      if (++countThisWindow <= numTuplesPerWindow) {
+        dataOutput.emit(POJOGenerationFromData.getPOJO(generator.gen(), numDimensions));
+        totalCount++;
+      }
     }
   }
 
@@ -96,5 +105,25 @@ public class BenchmarkDataInput extends BaseOperator implements InputOperator
   public void setNumTuplesPerWindow(int numTuplesPerWindow)
   {
     this.numTuplesPerWindow = numTuplesPerWindow;
+  }
+
+  public long getTupleCountBeforeQuery()
+  {
+    return tupleCountBeforeQuery;
+  }
+
+  public void setTupleCountBeforeQuery(long tupleCountBeforeQuery)
+  {
+    this.tupleCountBeforeQuery = tupleCountBeforeQuery;
+  }
+
+  public int getNumQueryTuplesPerWindow()
+  {
+    return numQueryTuplesPerWindow;
+  }
+
+  public void setNumQueryTuplesPerWindow(int numQueryTuplesPerWindow)
+  {
+    this.numQueryTuplesPerWindow = numQueryTuplesPerWindow;
   }
 }
