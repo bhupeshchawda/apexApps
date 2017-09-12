@@ -5,6 +5,7 @@ package com.example.OlapTestApp;
  */
 public class POJO
 {
+  public String dataSource;
   public long time;
   public String a;
   public String b;
@@ -74,6 +75,16 @@ public class POJO
   public void setY(long y)
   {
     this.y = y;
+  }
+
+  public String getDataSource()
+  {
+    return dataSource;
+  }
+
+  public void setDataSource(String dataSource)
+  {
+    this.dataSource = dataSource;
   }
 
   @Override

@@ -1,12 +1,19 @@
 package com.example.OlapBenchmark.datagen;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang.math.NumberUtils;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 /**
  * Created by bhupesh on 20/7/17.
@@ -16,18 +23,47 @@ public class BenchmarkDataGeneratorUtility
   // Config
   public double fanout = 0.2;
   public int numDimensions;
+  public int numMeasures;
   public int[] cardinalities;
+  public boolean isRealData;
+  public String[] dimensions;
+  public String[] measures;
+  public String baseDataPath;
+  public Map<String, List<String>> masterData;
 
   public long numTuplesToGenerate = 1000000;
 
-  public int numMeasures = 3; // constant for now
   public static final char base = 'a';
   private int minCardinality;
   private int maxCardinality;
   private static Random r = new Random();
 
-  public BenchmarkDataGeneratorUtility()
+  public BenchmarkDataGeneratorUtility() throws IOException
   {
+    numDimensions = 5;
+    numMeasures = 1;
+    dimensions = new String[] {"email", "country", "cctype", "currency", "isfraud"}; // ccnumber, currency type etc..
+    isRealData = true;
+    cardinalities = new int[] {20000, 127, 16, 59, 2};
+    measures = new String[] {"amount"};
+    baseDataPath = "src/main/resources/";
+
+    // upload masterdata
+    masterData = Maps.newHashMap();
+    for (int i = 0; i < dimensions.length; i++) {
+      masterData.put(dimensions[i], readFile(dimensions[i]));
+    }
+  }
+
+  public List<String> readFile(String path) throws IOException
+  {
+    List<String> retVal = Lists.newArrayList();
+    BufferedReader br = new BufferedReader(new FileReader(baseDataPath + "/" + path));
+    String s;
+    while ((s = br.readLine()) != null) {
+      retVal.add(s);
+    }
+    return retVal;
   }
 
   public void init()
@@ -48,15 +84,22 @@ public class BenchmarkDataGeneratorUtility
     int lastVal = ThreadLocalRandom.current().nextInt(minCardinality, maxCardinality);
     StringBuffer record = new StringBuffer();
     for (int c = 0; c < numDimensions; c++) {
-      record.append(repeat((char)(base + c), 10));
-      lastVal = vary(project(lastVal, lastCardinality, cardinalities[c]), cardinalities[c]);
-      record.append(lastVal);
-      record.append(':');
-      lastCardinality = cardinalities[c];
+      if (isRealData) {
+        lastVal = vary(project(lastVal, lastCardinality, cardinalities[c]), cardinalities[c]);
+        record.append(masterData.get(dimensions[c]).get(lastVal));
+        record.append(":");
+        lastCardinality = cardinalities[c];
+      } else {
+        record.append(repeat((char)(base + c), 10));
+        lastVal = vary(project(lastVal, lastCardinality, cardinalities[c]), cardinalities[c]);
+        record.append(lastVal);
+        record.append(':');
+        lastCardinality = cardinalities[c];
+      }
     }
     for (int m = 0; m < numMeasures; m++) {
       record.append(r.nextInt(Integer.MAX_VALUE));
-      record.append(':');
+      record.append('|');
     }
     return record.substring(0, record.length() - 1);
   }

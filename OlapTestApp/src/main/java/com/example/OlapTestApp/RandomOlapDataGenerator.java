@@ -17,7 +17,7 @@ public class RandomOlapDataGenerator extends BaseOperator implements InputOperat
   public static final char base = 'A';
   public int numDimensions = 3;
   public int numMeasures = 2;
-  public int[] cardinalities = new int[]{2,2,2};
+  public int[] cardinalities = new int[]{3,3,3};
   public double fanout = 1;
   public int maxTuplesPerWindow = 10;
 
@@ -57,6 +57,7 @@ public class RandomOlapDataGenerator extends BaseOperator implements InputOperat
     String generated = gen();
     String[] s = generated.trim().split(":");
     POJO pojo = new POJO();
+    pojo.dataSource = "test";
     pojo.time = System.currentTimeMillis();
     pojo.a = s[0];
     pojo.b = s[1];

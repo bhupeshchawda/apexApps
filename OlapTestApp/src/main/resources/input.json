@@ -1,30 +1,40 @@
 {
-  "timeColumn": "time",
-  "dimensions": [
+  "schemas": [
     {
-      "name": "a",
-      "type": "string"
-    }, {
-      "name": "b",
-      "type": "string"
-    }, {
-      "name": "c",
-      "type": "string"
+      "dataSource": "test",
+      "parser": {
+        "type": "string",
+        "parseSpec": {
+          "format": "json",
+          "timestampSpec": {
+            "column": "time",
+            "format": "auto"
+          },
+          "dimensionsSpec": {
+            "dimensions": ["a", "b", "c"],
+            "dimensionExclusions": [],
+            "spatialDimensions": []
+          }
+        }
+      },
+      "metricsSpec": [
+        {
+          "type": "count",
+          "name": "count"
+        }, {
+          "type": "doubleSum",
+          "name": "sumX",
+          "fieldName": "x"
+        }, {
+          "type": "doubleSum",
+          "name": "sumY",
+          "fieldName": "y"
+        }
+      ],
+      "granularitySpec": {
+        "segmentGranularity": "SECOND",
+        "queryGranularity": "MINUTE"
+      }
     }
-  ],
-  "measures": [
-    {
-      "type": "longSum",
-      "name": "sum_agg_x",
-      "fieldName": "x"
-    }, {
-      "type": "longSum",
-      "name": "sum_agg_y",
-      "fieldName": "y"
-    }, {
-      "type": "count",
-      "name": "count"
-    }
-  ],
-  "granularity": "MINUTE"
+  ]
 }
