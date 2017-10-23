@@ -15,11 +15,11 @@ public class ScoringApp{
   {
     // Load existing model
 
-    String path = "/tmp/recommender_model/";
-    SparkConf conf = new SparkConf().setAppName("Example").setMaster("local").set("spark.executor.memory","1g");
-    JavaSparkContext jsc = new JavaSparkContext(conf);
-    MatrixFactorizationModel sameModel = MatrixFactorizationModel.load(jsc.sc(), path);
-    System.out.println(sameModel);
+    String path = "/home/bhupesh/DT/Mindstix/recommender_model";
+    ApexContext sc  = new ApexContext(new ApexConf().setMaster("local").setAppName("Test"));
+//    JavaSparkContext jsc = new JavaSparkContext(conf);
+    MatrixFactorizationModel sameModel = MatrixFactorizationModel.load(sc, path);
+    System.out.println(sameModel.productFeatures());
 
 
     // Train and load own model
