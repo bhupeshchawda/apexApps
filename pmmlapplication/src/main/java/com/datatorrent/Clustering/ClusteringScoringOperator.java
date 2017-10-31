@@ -54,7 +54,7 @@ public class  ClusteringScoringOperator extends BaseOperator
         fs=FileSystem.get(configuration);
         PMML pmml = PMMLUtils.getPMML(fs, "/user/devraj/irismodel.pmml");
 //    PMML pmml = PMMLUtils.getPMML(FileSystem.newInstance(new Configuration()), "/home/devraj/irismodel.pmml");
-        scorer = (ClusteringScorer)PMMLScorerFactory.getScorer(pmml, 1);
+        scorer = (ClusteringScorer)PMMLScorerFactory.getScorer(pmml, 0);
         fs.close();
       }catch (Exception e){
         e.printStackTrace();

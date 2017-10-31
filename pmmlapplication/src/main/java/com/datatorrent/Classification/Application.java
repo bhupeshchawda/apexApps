@@ -11,7 +11,7 @@ import com.datatorrent.api.DAG;
 import com.datatorrent.api.DAG.Locality;
 import com.datatorrent.lib.io.fs.AbstractFileOutputOperator;
 
-@ApplicationAnnotation(name="PMMLApplicationSVM")
+@ApplicationAnnotation(name="PMMLApplicationClassification")
 public class Application implements StreamingApplication
 {
 
