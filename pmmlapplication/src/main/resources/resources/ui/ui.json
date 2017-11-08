@@ -1,0 +1,9 @@
+{
+  "dashboards": [
+    {
+      "name": "PMML Application-Classification ",
+      "file": "PMMLApplicationClassification.dtdashboard",
+      "appNames": ["PMMLApplicationClassification"]
+    }
+  ]
+}

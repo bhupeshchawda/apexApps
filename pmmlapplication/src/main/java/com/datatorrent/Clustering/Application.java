@@ -1,5 +1,6 @@
 package com.datatorrent.Clustering;
 
+import org.apache.apex.malhar.lib.fs.GenericFileOutputOperator;
 import org.apache.hadoop.conf.Configuration;
 import com.datatorrent.api.DAG;
 import com.datatorrent.api.StreamingApplication;
@@ -15,10 +16,8 @@ public class Application implements StreamingApplication
   {
 
     FileInputOp inputOp=dag.addOperator("inputOp",FileInputOp.class);
-    ClusteringScoringOperator scoringOperator=dag.addOperator("scoringOperator",ClusteringScoringOperator.class);
-//    AbstractFileOutputOperator abstractFileOutputOperator=dag.addOperator("abstractFileOutputOperator",AbstractFileOutputOperator.class);
-
-    FileOutputOp fileOutPutOp=dag.addOperator("fileOutPutOp",FileOutputOp.class);
+    ClusteringOperator scoringOperator=dag.addOperator("scoringOperator",ClusteringOperator.class);
+    GenericFileOutputOperator.StringFileOutputOperator fileOutPutOp=dag.addOperator("fileOutPutOp",GenericFileOutputOperator.StringFileOutputOperator.class);
 
     dag.addStream("scoringdata", inputOp.output, scoringOperator.input).setLocality(DAG.Locality.CONTAINER_LOCAL);
     dag.addStream("printoutput",scoringOperator.output,fileOutPutOp.input);

@@ -20,7 +20,7 @@ import com.datatorrent.pmml.scorer.ClusteringScorer;
 import com.datatorrent.pmml.scorer.PMMLScorerFactory;
 import com.datatorrent.pmml.utils.PMMLUtils;
 
-public class  ClusteringScoringOperator extends BaseOperator
+public class  ClusteringOperator extends BaseOperator
 {
 
   double minvalue;
@@ -39,7 +39,7 @@ public class  ClusteringScoringOperator extends BaseOperator
   transient FileSystem fs;
   ClusteringScorer scorer;
   String label="";
-  private static final Logger LOG = LoggerFactory.getLogger(ClusteringScoringOperator.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ClusteringOperator.class);
   public transient DefaultOutputPort<String> output = new DefaultOutputPort<>();
 
   public transient DefaultInputPort<String> input = new DefaultInputPort<String>() {
@@ -66,7 +66,6 @@ public class  ClusteringScoringOperator extends BaseOperator
     public void process(String s) {
       String str1[] = s.split(",");
       Map<String, Number> data = Maps.newHashMap();
-
       data.put("Sepal.Length",Double.parseDouble(str1[0]));
       data.put("Sepal.Width",Double.parseDouble(str1[1]));
       data.put("Petal,Length",Double.parseDouble(str1[0]));

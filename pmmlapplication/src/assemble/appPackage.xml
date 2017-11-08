@@ -37,6 +37,11 @@
       <directory>${basedir}/src/main/resources/resources</directory>
       <outputDirectory>/resources</outputDirectory>
     </fileSet>
+
+    <fileSet>
+      <directory>${basedir}/src/main/resources/resources</directory>
+      <outputDirectory>/resources</outputDirectory>
+    </fileSet>
   </fileSets>
 
 </assembly>

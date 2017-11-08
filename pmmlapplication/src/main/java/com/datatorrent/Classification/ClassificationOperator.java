@@ -21,7 +21,7 @@ import com.datatorrent.pmml.scorer.ClassificationScorer;
 import com.datatorrent.pmml.scorer.PMMLScorerFactory;
 import com.datatorrent.pmml.utils.PMMLUtils;
 
-public class  ScoringOperator1 extends BaseOperator
+public class  ClassificationOperator extends BaseOperator
 {
 
   @AutoMetric
@@ -33,27 +33,25 @@ public class  ScoringOperator1 extends BaseOperator
   @AutoMetric
   private int fraudpermin=0;
 
+  private String pmmlPath="";
   int j;
   int i;
   transient FileSystem fs;
   ClassificationScorer scorer;
-  //  SVMScorer scorer;
   String label="";
-  private static final Logger LOG = LoggerFactory.getLogger(ScoringOperator.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ClassificationOperator.class);
    public transient DefaultOutputPort<String> output = new DefaultOutputPort<>();
 
   public transient DefaultInputPort<String> input = new DefaultInputPort<String>() {
     @Override
     public void setup(Context.PortContext context)
     {
-
       try {
         i=0;
         j=0;
         Configuration configuration=new Configuration();
         fs=FileSystem.get(configuration);
-        PMML pmml = PMMLUtils.getPMML(fs, "/user/devraj/fraudmodel.pmml");
-
+        PMML pmml = PMMLUtils.getPMML(fs, pmmlPath);
 //    PMML pmml = PMMLUtils.getPMML(FileSystem.newInstance(new Configuration()), "/home/devraj/fraudmodel.pmml");
         scorer = (ClassificationScorer)PMMLScorerFactory.getScorer(pmml, 0);
         fs.close();
@@ -114,12 +112,9 @@ public class  ScoringOperator1 extends BaseOperator
             label=entry.getKey();
             fraud++;
           }
-
       }
       output.emit(s+":"+label);
     }
-
-
   };
 
   @Override
@@ -135,8 +130,17 @@ public class  ScoringOperator1 extends BaseOperator
   @Override
   public void beginWindow(long windowId)
   {
-
     super.beginWindow(windowId);
+  }
+
+  public String getPmmlPath()
+  {
+    return pmmlPath;
+  }
+
+  public void setPmmlPath(String pmmlPath)
+  {
+    this.pmmlPath = pmmlPath;
   }
 }
 

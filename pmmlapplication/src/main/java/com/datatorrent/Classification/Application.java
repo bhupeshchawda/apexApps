@@ -3,6 +3,7 @@
  */
 package com.datatorrent.Classification;
 
+import org.apache.apex.malhar.lib.fs.GenericFileOutputOperator;
 import org.apache.hadoop.conf.Configuration;
 
 import com.datatorrent.api.annotation.ApplicationAnnotation;
@@ -20,11 +21,12 @@ public class Application implements StreamingApplication
   {
 
     FileInputOp inputOp=dag.addOperator("inputOp",FileInputOp.class);
-    ScoringOperator scoringOperator=dag.addOperator("scoringOperator",ScoringOperator.class);
-    FileOutputOp fileOutPutOp=dag.addOperator("fileOutPutOp",FileOutputOp.class);
+    ClassificationOperator classificationOperator=dag.addOperator("classificationOperator",ClassificationOperator.class);
+//    FileOutputOp fileOutPutOp=dag.addOperator("fileOutPutOp",FileOutputOp.class);
+    GenericFileOutputOperator.StringFileOutputOperator fileOutPutOp=dag.addOperator("fileOutPutOp", GenericFileOutputOperator.StringFileOutputOperator.class);
 //    AbstractFileOutputOperator abstractFileOutputOperator=dag.addOperator("a")
 
-    dag.addStream("scoringdata", inputOp.output, scoringOperator.input).setLocality(Locality.CONTAINER_LOCAL);
-    dag.addStream("printoutput",scoringOperator.output,fileOutPutOp.input);
+    dag.addStream("scoringdata", inputOp.output, classificationOperator.input).setLocality(Locality.CONTAINER_LOCAL);
+    dag.addStream("printoutput",classificationOperator.output,fileOutPutOp.input);
   }
 }
