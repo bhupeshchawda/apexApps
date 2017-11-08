@@ -10,9 +10,12 @@ import com.datatorrent.api.annotation.ApplicationAnnotation;
 import com.datatorrent.api.StreamingApplication;
 import com.datatorrent.api.DAG;
 import com.datatorrent.api.DAG.Locality;
+import com.datatorrent.lib.io.ConsoleOutputOperator;
 import com.datatorrent.lib.io.fs.AbstractFileOutputOperator;
+import com.datatorrent.pmml.operator.ClassificationScoringOperator;
+import com.datatorrent.pmml.scorer.ClassificationScorer;
 
-@ApplicationAnnotation(name="PMMLApplicationClassification")
+@ApplicationAnnotation(name = "PMML-Classification-Scoring-App")
 public class Application implements StreamingApplication
 {
 
@@ -20,13 +23,11 @@ public class Application implements StreamingApplication
   public void populateDAG(DAG dag, Configuration conf)
   {
 
-    FileInputOp inputOp=dag.addOperator("inputOp",FileInputOp.class);
-    ClassificationOperator classificationOperator=dag.addOperator("classificationOperator",ClassificationOperator.class);
-//    FileOutputOp fileOutPutOp=dag.addOperator("fileOutPutOp",FileOutputOp.class);
-    GenericFileOutputOperator.StringFileOutputOperator fileOutPutOp=dag.addOperator("fileOutPutOp", GenericFileOutputOperator.StringFileOutputOperator.class);
-//    AbstractFileOutputOperator abstractFileOutputOperator=dag.addOperator("a")
+    ClassificationInput inputOp = dag.addOperator("inputOp", ClassificationInput.class);
+    ClassificationScoringOperator scoring = dag.addOperator("classificationOperator", ClassificationScoringOperator.class);
+    ScoringOutputOperator logger = dag.addOperator("Logger", ScoringOutputOperator.class);
 
-    dag.addStream("scoringdata", inputOp.output, classificationOperator.input).setLocality(Locality.CONTAINER_LOCAL);
-    dag.addStream("printoutput",classificationOperator.output,fileOutPutOp.input);
+    dag.addStream("data to scoring", inputOp.scoringOut, scoring.input);
+    dag.addStream("scoring to output", scoring.output, logger.input);
   }
 }

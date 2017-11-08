@@ -5,79 +5,55 @@
   <!--Classification Properties-->
 
   <property>
-    <name>dt.application.PMMLApplicationClassification.operator.inputOp.prop.directory</name>
-    <value>/user/devraj/fraud</value>
+    <name>dt.operator.inputOp.prop.directory</name>
+    <value>/tmp/pmml/input</value>
   </property>
 
   <property>
-    <name>dt.application.PMMLApplicationClassification.operator.inputOp.prop.emitBatchSize</name>
+    <name>dt.operator.inputOp.prop.emitBatchSize</name>
     <value>5</value>
   </property>
 
   <property>
-    <name>dt.application.PMMLApplicationClassification.operator.fileOutPutOp.prop.filePath</name>
-    <value>/user/devraj/fraudoutput.txt</value>
+    <name>dt.operator.classificationOperator.prop.pmmlFilePath</name>
+    <value>/tmp/pmml/model/fraudmodel.pmml</value>
   </property>
-
-  <property>
-    <name>dt.application.PMMLApplicationClassification.operator.classificationOperator.prop.pmmlPath</name>
-    <value>/user/devraj/fraudmodel.pmml</value>
-  </property>
-
-  <property>
-    <name>dt.application.PMMLApplicationClassification.operator.fileOutPutOp.prop.outputFileName</name>
-    <value>fraudoutput.txt</value>
-  </property>
-
-  <property>
-    <name>dt.application.PMMLApplicationClassification.operator.fileOutPutOp.prop.filePath</name>
-    <value>/user/devraj</value>
-  </property>
-
-
-
-
-
-
 
   <!--Clustering Properties-->
-  <property>
-    <name>dt.application.PMMLApplicationClustering.operator.inputOp.prop.directory</name>
-    <value>/user/devraj/clustering</value>
-  </property>
+  <!--<property>-->
+    <!--<name>dt.application.PMMLApplicationClustering.operator.inputOp.prop.directory</name>-->
+    <!--<value>/user/devraj/clustering</value>-->
+  <!--</property>-->
 
-  <property>
-    <name>dt.application.PMMLApplicationClustering.operator.inputOp.prop.emitBatchSize</name>
-    <value>1</value>
-  </property>
+  <!--<property>-->
+    <!--<name>dt.application.PMMLApplicationClustering.operator.inputOp.prop.emitBatchSize</name>-->
+    <!--<value>1</value>-->
+  <!--</property>-->
 
-  <property>
-    <name>dt.application.PMMLApplicationClustering.operator.fileOutPutOp.prop.filePath</name>
-    <value>/user/devraj/irisoutput.txt</value>
-  </property>
+  <!--<property>-->
+    <!--<name>dt.application.PMMLApplicationClustering.operator.fileOutPutOp.prop.filePath</name>-->
+    <!--<value>/user/devraj/irisoutput.txt</value>-->
+  <!--</property>-->
 
-  <property>
-    <name>dt.application.PMMLApplicationClustering.operator.ClusteringOperator.prop.filePath</name>
-    <value>/user/devraj/clusteringmodel.pmml</value>
-  </property>
+  <!--<property>-->
+    <!--<name>dt.application.PMMLApplicationClustering.operator.ClusteringOperator.prop.filePath</name>-->
+    <!--<value>/user/devraj/clusteringmodel.pmml</value>-->
+  <!--</property>-->
 
-  <property>
-    <name>dt.application.PMMLApplicationClustering.operator.fileOutPutOp.prop.outputFileName</name>
-    <value>clusteringoutput.txt</value>
-  </property>
+  <!--<property>-->
+    <!--<name>dt.application.PMMLApplicationClustering.operator.fileOutPutOp.prop.outputFileName</name>-->
+    <!--<value>clusteringoutput.txt</value>-->
+  <!--</property>-->
 
-  <property>
-    <name>dt.application.PMMLApplicationClustering.operator.fileOutPutOp.prop.filePath</name>
-    <value>/user/devraj</value>
-  </property>
-
-
+  <!--<property>-->
+    <!--<name>dt.application.PMMLApplicationClustering.operator.fileOutPutOp.prop.filePath</name>-->
+    <!--<value>/user/devraj</value>-->
+  <!--</property>-->
 
 
-  
- <!-- <property>
-    <name>apex.plugin.stram.plugins</name>
-    <value>com.datatorrent.metrics.plugin.MetricWriterPlugin</value>
-  </property>-->
+  <!-- <property>
+     <name>apex.plugin.stram.plugins</name>
+     <value>com.datatorrent.metrics.plugin.MetricWriterPlugin</value>
+   </property>-->
 </configuration>
 
