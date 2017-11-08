@@ -11,7 +11,7 @@
 
   <property>
     <name>dt.operator.inputOp.prop.emitBatchSize</name>
-    <value>5</value>
+    <value>1</value>
   </property>
 
   <property>

@@ -13,7 +13,30 @@ import com.datatorrent.api.DefaultOutputPort;
  */
 public class ClassificationInput extends LineByLineFileInputOperator
 {
+  public int maxTuplesPerWindow = 100;
+  public transient int tuplesThisWindow = 0;
+
   public transient final DefaultOutputPort<Map<String, Object>> scoringOut = new DefaultOutputPort<>();
+
+  @Override
+  public void beginWindow(long windowId)
+  {
+    tuplesThisWindow = 0;
+  }
+
+  @Override
+  public void emitTuples()
+  {
+    if (++tuplesThisWindow <= maxTuplesPerWindow) {
+      super.emitTuples();
+    } else {
+      try {
+        Thread.sleep(10);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
 
   @Override
   protected void emit(String tuple)
@@ -53,5 +76,15 @@ public class ClassificationInput extends LineByLineFileInputOperator
     data.put("Amount", Double.parseDouble(str1[29]));
 
     scoringOut.emit(data);
+  }
+
+  public int getMaxTuplesPerWindow()
+  {
+    return maxTuplesPerWindow;
+  }
+
+  public void setMaxTuplesPerWindow(int maxTuplesPerWindow)
+  {
+    this.maxTuplesPerWindow = maxTuplesPerWindow;
   }
 }

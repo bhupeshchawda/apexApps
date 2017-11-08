@@ -22,9 +22,6 @@ public class ScoringOutputOperator extends BaseOperator
   @AutoMetric
   private int nonfraud = 0;
 
-  @AutoMetric
-  private int fraudpermin = 0;
-
   @Override
   public void beginWindow(long windowId)
   {

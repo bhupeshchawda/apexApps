@@ -24,6 +24,7 @@ public class Application implements StreamingApplication
   {
 
     ClassificationInput inputOp = dag.addOperator("inputOp", ClassificationInput.class);
+    inputOp.setEmitBatchSize(1);
     ClassificationScoringOperator scoring = dag.addOperator("classificationOperator", ClassificationScoringOperator.class);
     ScoringOutputOperator logger = dag.addOperator("Logger", ScoringOutputOperator.class);
 
