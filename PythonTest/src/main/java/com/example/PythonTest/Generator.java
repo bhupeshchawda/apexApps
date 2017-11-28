@@ -13,7 +13,7 @@ public class Generator extends BaseOperator implements InputOperator
 {
 
   public final transient DefaultOutputPort<POJO> output = new DefaultOutputPort<>();
-  public Random r;
+  public Random r = new Random();
 
   @Override
   public void emitTuples()

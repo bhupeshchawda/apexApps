@@ -1,0 +1,24 @@
+from dtbase.operator.Operator import *
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
+import types
+
+@Properties(var1=types.FloatType, var2=types.FloatType, var3=types.FloatType, var4=types.FloatType)
+@OutputPort("truePort")
+class TestOperator(BaseOperator):
+
+    def __init__(self):
+        pass
+
+    @InputPort('inA')
+    def score(self, tuple):
+        print(tuple)
+
+    def setup(self, context):
+        X, y = make_classification(n_samples=1000, n_features=4, n_informative=2, n_redundant=0, random_state=0, shuffle=False)
+        clf = RandomForestClassifier(max_depth=2, random_state=0)
+        clf.fit(X, y)
+        print(clf)
+
+    def teardown(self):
+        print "teardown"

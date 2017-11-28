@@ -10,7 +10,7 @@ import com.datatorrent.api.StreamingApplication;
 import com.datatorrent.api.DAG;
 import dt.operator.scoring.TestOperator;
 
-@ApplicationAnnotation(name="MyFirstApplication")
+@ApplicationAnnotation(name="PythonApp")
 public class Application implements StreamingApplication
 {
 
@@ -19,8 +19,6 @@ public class Application implements StreamingApplication
   {
     Generator gen = dag.addOperator("Generator", Generator.class);
     TestOperator op = dag.addOperator("Python", TestOperator.class);
-
-
-
+    dag.addStream("scoring-data", gen.output, op.inA);
   }
 }
