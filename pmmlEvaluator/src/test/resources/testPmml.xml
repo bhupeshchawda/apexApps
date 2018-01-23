@@ -1,0 +1,58 @@
+<PMML version="4.1" xmlns="http://www.dmg.org/PMML-4_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.dmg.org/PMML-4_3 http://www.dmg.org/pmml/v4-3/pmml-4-3.xsd">
+  <Header copyright="Copyright (c) 2017 bhupesh" description="Generalized Linear Regression Model">
+    <Extension name="user" value="bhupesh" extender="Rattle/PMML"/>
+    <Application name="Rattle/PMML" version="1.4"/>
+    <Timestamp>2017-08-09 14:37:18</Timestamp>
+  </Header>
+  <DataDictionary numberOfFields="4">
+    <DataField name="admit" optype="categorical" dataType="double">
+      <Value value="0"/>
+    </DataField>
+    <DataField name="gre" optype="continuous" dataType="double"/>
+    <DataField name="gpa" optype="continuous" dataType="double"/>
+    <DataField name="rank" optype="categorical" dataType="string">
+      <Value value="1"/>
+      <Value value="2"/>
+      <Value value="3"/>
+      <Value value="4"/>
+    </DataField>
+  </DataDictionary>
+  <GeneralRegressionModel modelName="General_Regression_Model" modelType="generalizedLinear" functionName="regression" algorithmName="glm" distribution="binomial" linkFunction="logit">
+    <MiningSchema>
+      <MiningField name="admit" usageType="predicted"/>
+      <MiningField name="gre" usageType="active"/>
+      <MiningField name="gpa" usageType="active"/>
+      <MiningField name="rank" usageType="active"/>
+    </MiningSchema>
+    <ParameterList>
+      <Parameter name="p0" label="(Intercept)"/>
+      <Parameter name="p1" label="gre"/>
+      <Parameter name="p2" label="gpa"/>
+      <Parameter name="p3" label="rank2"/>
+      <Parameter name="p4" label="rank3"/>
+      <Parameter name="p5" label="rank4"/>
+    </ParameterList>
+    <FactorList>
+      <Predictor name="rank"/>
+    </FactorList>
+    <CovariateList>
+      <Predictor name="gre"/>
+      <Predictor name="gpa"/>
+    </CovariateList>
+    <PPMatrix>
+      <PPCell value="1" predictorName="gre" parameterName="p1"/>
+      <PPCell value="1" predictorName="gpa" parameterName="p2"/>
+      <PPCell value="2" predictorName="rank" parameterName="p3"/>
+      <PPCell value="3" predictorName="rank" parameterName="p4"/>
+      <PPCell value="4" predictorName="rank" parameterName="p5"/>
+    </PPMatrix>
+    <ParamMatrix>
+      <PCell parameterName="p0" df="1" beta="-3.98997907333103"/>
+      <PCell parameterName="p1" df="1" beta="0.00226442578617915"/>
+      <PCell parameterName="p2" df="1" beta="0.804037549280222"/>
+      <PCell parameterName="p3" df="1" beta="-0.675442927963561"/>
+      <PCell parameterName="p4" df="1" beta="-1.34020391646789"/>
+      <PCell parameterName="p5" df="1" beta="-1.55146367691807"/>
+    </ParamMatrix>
+  </GeneralRegressionModel>
+</PMML>

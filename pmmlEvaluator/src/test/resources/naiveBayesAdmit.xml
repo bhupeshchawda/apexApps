@@ -1,0 +1,67 @@
+<PMML version="4.3" xmlns="http://www.dmg.org/PMML-4_3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.dmg.org/PMML-4_3 http://www.dmg.org/pmml/v4-3/pmml-4-3.xsd">
+  <Header copyright="Copyright (c) 2017 bhupesh" description="NaiveBayes Model">
+    <Extension name="user" value="bhupesh" extender="Rattle/PMML"/>
+    <Application name="Rattle/PMML" version="1.4"/>
+    <Timestamp>2017-09-04 15:55:16</Timestamp>
+  </Header>
+  <DataDictionary numberOfFields="4">
+    <DataField name="admit" optype="categorical" dataType="string">
+      <Value value="0"/>
+      <Value value="1"/>
+    </DataField>
+    <DataField name="gre" optype="continuous" dataType="double"/>
+    <DataField name="gpa" optype="continuous" dataType="double"/>
+    <DataField name="rank" optype="continuous" dataType="double"/>
+  </DataDictionary>
+  <NaiveBayesModel modelName="naiveBayes_Model" functionName="classification" threshold="0.001">
+    <MiningSchema>
+      <MiningField name="admit" usageType="predicted"/>
+      <MiningField name="gre" usageType="active"/>
+      <MiningField name="gpa" usageType="active"/>
+      <MiningField name="rank" usageType="active"/>
+    </MiningSchema>
+    <Output>
+      <OutputField name="Predicted_admit" feature="predictedValue" dataType="string"/>
+      <OutputField name="Probability_0" optype="continuous" dataType="double" feature="probability" value="0"/>
+      <OutputField name="Probability_1" optype="continuous" dataType="double" feature="probability" value="1"/>
+    </Output>
+    <BayesInputs>
+      <BayesInput fieldName="gre">
+        <TargetValueStats>
+          <TargetValueStat value="0">
+            <GaussianDistribution mean="573.186813186813" variance="13416.6451195863"/>
+          </TargetValueStat>
+          <TargetValueStat value="1">
+            <GaussianDistribution mean="618.897637795276" variance="11855.9180102487"/>
+          </TargetValueStat>
+        </TargetValueStats>
+      </BayesInput>
+      <BayesInput fieldName="gpa">
+        <TargetValueStats>
+          <TargetValueStat value="0">
+            <GaussianDistribution mean="3.34369963369963" variance="0.142229277095454"/>
+          </TargetValueStat>
+          <TargetValueStat value="1">
+            <GaussianDistribution mean="3.4892125984252" variance="0.137031121109861"/>
+          </TargetValueStat>
+        </TargetValueStats>
+      </BayesInput>
+      <BayesInput fieldName="rank">
+        <TargetValueStats>
+          <TargetValueStat value="0">
+            <GaussianDistribution mean="2.64102564102564" variance="0.841251885369533"/>
+          </TargetValueStat>
+          <TargetValueStat value="1">
+            <GaussianDistribution mean="2.1496062992126" variance="0.84251968503937"/>
+          </TargetValueStat>
+        </TargetValueStats>
+      </BayesInput>
+    </BayesInputs>
+    <BayesOutput fieldName="admit">
+      <TargetValueCounts>
+        <TargetValueCount value="0" count="273"/>
+        <TargetValueCount value="1" count="127"/>
+      </TargetValueCounts>
+    </BayesOutput>
+  </NaiveBayesModel>
+</PMML>
