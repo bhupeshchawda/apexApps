@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<configuration>
+
+
+  <!--Classification Properties-->
+<!--  <property>
+    <name>dt.application.PMML-Classification-Scoring-App.operator.inputOp.prop.directory</name>
+    <value>/user/devraj/fraud</value>
+  </property>
+
+  <property>
+    <name>dt.application.PMML-Classification-Scoring-App.operator.inputOp.prop.emitBatchSize</name>
+    <value>1</value>
+  </property>
+
+  <property>
+    <name>dt.application.PMML-Classification-Scoring-App.operator.classificationOperator.prop.pmmlFilePath</name>
+    <value>/user/devraj/fraudmodel.pmml</value>
+  </property>-->
+
+
+  <!--Clustering Properties-->
+
+
+  <property>
+    <name>dt.operator.inputOp1.prop.directory</name>
+    <value>/user/devraj/clustering</value>
+  </property>
+
+  <property>
+    <name>dt.operator.inputOp1.prop.emitBatchSize</name>
+    <value>1</value>
+  </property>
+
+  <property>
+    <name>dt.operator.clusteringOperator.prop.pmmlFilePath</name>
+    <value>/user/devraj/irismodel.pmml</value>
+  </property>
+
+
+  <property>
+    <name>dt.operator.classificationOperator.prop.pmmlFilePath</name>
+    <value>/user/devraj/fraudmodel.pmml</value>
+  </property>
+</configuration>
+
